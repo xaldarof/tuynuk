@@ -1,0 +1,2 @@
+/Users/temurxoldarov/StudioProjects/tuynuk-mobile/android/app/.cxx/RelWithDebInfo/2g2o2g5m/x86/CMakeFiles/edit_cache.dir
+/Users/temurxoldarov/StudioProjects/tuynuk-mobile/android/app/.cxx/RelWithDebInfo/2g2o2g5m/x86/CMakeFiles/rebuild_cache.dir

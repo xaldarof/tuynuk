@@ -181,95 +181,97 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.black,
-      body: Stack(
-        children: [
-          Align(
-            alignment: Alignment.topRight,
-            child: DropdownButton<Locale>(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-              underline: const SizedBox.shrink(),
-              icon: const SizedBox.shrink(),
-              borderRadius: BorderRadius.circular(12),
-              dropdownColor: Colors.deepPurple[300],
-              hint: Text(context.localization.language,
-                  style: AppTheme.textTheme.titleMedium),
-              onChanged: (Locale? locale) {
-                if (locale == null) return;
-                context.read<MainBloc>().add(UpdateLocalization(locale));
-                _initQuickActions();
-              },
-              items: AppLocalizations.supportedLocales.map((e) {
-                return DropdownMenuItem(
-                  value: Locale(e.languageCode, ''),
-                  child: Text(
-                    e.languageCode,
-                    style: AppTheme.textTheme.titleMedium,
-                  ),
-                );
-              }).toList(),
-            ),
-          ),
-          Align(
-            alignment: Alignment.topLeft,
-            child: Container(
-              margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-              child: IconButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, PathValues.history);
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Colors.black,
+        body: Stack(
+          children: [
+            Align(
+              alignment: Alignment.topRight,
+              child: DropdownButton<Locale>(
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                underline: const SizedBox.shrink(),
+                icon: const SizedBox.shrink(),
+                borderRadius: BorderRadius.circular(12),
+                dropdownColor: Colors.deepPurple[300],
+                hint: Text(context.localization.language,
+                    style: AppTheme.textTheme.titleMedium),
+                onChanged: (Locale? locale) {
+                  if (locale == null) return;
+                  context.read<MainBloc>().add(UpdateLocalization(locale));
+                  _initQuickActions();
                 },
-                icon: const Icon(
-                  Icons.history_toggle_off_rounded,
-                  color: Colors.white,
-                ),
+                items: AppLocalizations.supportedLocales.map((e) {
+                  return DropdownMenuItem(
+                    value: Locale(e.languageCode, ''),
+                    child: Text(
+                      e.languageCode,
+                      style: AppTheme.textTheme.titleMedium,
+                    ),
+                  );
+                }).toList(),
               ),
             ),
-          ),
-          Align(
-            alignment: Alignment.center,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, PathValues.send);
-                  },
-                  child: Text(
-                    context.localization.send,
-                    style: AppTheme.textTheme.titleMedium,
-                  ),
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, PathValues.receive);
-                  },
-                  child: Text(
-                    context.localization.receive,
-                    style: AppTheme.textTheme.titleMedium,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: ScaleTap(
-              onPressed: () {
-                launchUrl(Uri.parse(Constants.sourceUrl),
-                    mode: LaunchMode.externalApplication);
-              },
+            Align(
+              alignment: Alignment.topLeft,
               child: Container(
-                margin: const EdgeInsets.all(12),
-                child: Text(
-                  context.localization.sourceCode,
-                  style: AppTheme.textTheme.titleMedium
-                      ?.copyWith(color: Colors.white60, fontSize: 8),
+                margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                child: IconButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, PathValues.history);
+                  },
+                  icon: const Icon(
+                    Icons.history_toggle_off_rounded,
+                    color: Colors.white,
+                  ),
                 ),
               ),
             ),
-          )
-        ],
+            Align(
+              alignment: Alignment.center,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, PathValues.send);
+                    },
+                    child: Text(
+                      context.localization.send,
+                      style: AppTheme.textTheme.titleMedium,
+                    ),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, PathValues.receive);
+                    },
+                    child: Text(
+                      context.localization.receive,
+                      style: AppTheme.textTheme.titleMedium,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: ScaleTap(
+                onPressed: () {
+                  launchUrl(Uri.parse(Constants.sourceUrl),
+                      mode: LaunchMode.externalApplication);
+                },
+                child: Container(
+                  margin: const EdgeInsets.all(12),
+                  child: Text(
+                    context.localization.sourceCode,
+                    style: AppTheme.textTheme.titleMedium
+                        ?.copyWith(color: Colors.white60, fontSize: 8),
+                  ),
+                ),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

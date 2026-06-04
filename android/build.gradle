@@ -14,6 +14,23 @@ subprojects {
     project.evaluationDependsOn(":app")
 }
 
+gradle.projectsEvaluated {
+    subprojects {
+        tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach { task ->
+            // Match Kotlin jvmTarget to whatever Java sourceCompatibility is set to
+            def javaTask = project.tasks.findByName(
+                    task.name.replace("Kotlin", "JavaWithJavac")
+            )
+            if (javaTask instanceof JavaCompile) {
+                def javaVersion = javaTask.sourceCompatibility
+                if (javaVersion) {
+                    task.kotlinOptions.jvmTarget = javaVersion
+                }
+            }
+        }
+    }
+}
+
 tasks.register("clean", Delete) {
     delete rootProject.buildDir
 }

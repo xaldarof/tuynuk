@@ -11,11 +11,11 @@ import 'package:signalr_netcore/signalr_client.dart';
 class ConnectionClient {
   final BaseEventListeners _eventNotifier;
   late HubConnection? _connection;
-  static String baseUrl = 'http://${Environment.serverIp}:8088/api/';
+  static String baseUrl = 'https://unsubserviently-noncommendatory-flynn.ngrok-free.dev/';
 
   void buildSignalR() {
     _connection = HubConnectionBuilder()
-        .withUrl('http://${Environment.serverIp}:8088/hubs/session')
+        .withUrl('${baseUrl}hubs/session')
         .withHubProtocol(JsonHubProtocol())
         .withSingleListener(true)
         .build();

@@ -133,7 +133,6 @@ class _TransmissionHistoryScreenState extends State<TransmissionHistoryScreen> {
           FileUtils.clearDecryptedCache();
         });
       } else {
-        logMessage("hide");
         LoadingDialog.hideLoadingDialog(context);
       }
     } else {

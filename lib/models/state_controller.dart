@@ -26,51 +26,15 @@ enum TransferStateEnum {
   fileDeleteError('File deletion error'),
   sharedKeyDigest('Shared key digest'),
   savingEncryptedFile('Saving encrypted file'),
+  fileSent('File sent'),
   clearing('Clearing');
 
   const TransferStateEnum(this.value);
 
   final String value;
-}
 
-class TransferStateController {
-  TransferStateEnum _currentState = TransferStateEnum.initial;
-
-  TransferStateEnum get state => _currentState;
-
-  bool get canSend =>
-      _currentState == TransferStateEnum.connectionError ||
-      _currentState == TransferStateEnum.initial;
-
-  bool get canReceive =>
-      _currentState == TransferStateEnum.connectionError ||
-      _currentState == TransferStateEnum.initial;
-
-  List<TransferStateEnum> get history => _history;
-  final List<Function> _listeners = [];
-  final List<TransferStateEnum> _history = [];
-
-  void onStateChanged(Function(TransferStateEnum state) listener) {
-    _listeners.add(listener);
-  }
-
-  _notify() {
-    for (var e in _listeners) {
-      e.call(_currentState);
-    }
-  }
-
-  void logStatus(TransferStateEnum state) {
-    _currentState = state;
-    _history.add(state);
-    if (state == TransferStateEnum.failed ||
-        state == TransferStateEnum.initial) {
-      restart();
-    }
-    _notify();
-  }
-
-  void restart() {
-    _currentState = TransferStateEnum.initial;
-  }
+  /// Terminal/idle states from which a new transfer can be started.
+  bool get isIdle =>
+      this == TransferStateEnum.initial ||
+      this == TransferStateEnum.connectionError;
 }

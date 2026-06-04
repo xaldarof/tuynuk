@@ -15,7 +15,7 @@ class Downloader {
       logMessage('Uploading $fileName');
       final task = UploadTask(
         taskId: DateTime.now().millisecondsSinceEpoch.toString(),
-        url: '${ConnectionClient.baseUrl}Files/UploadFile',
+        url: '${ConnectionClient.baseUrl}api/Files/UploadFile',
         filename: fileName,
         updates: Updates.statusAndProgress,
         baseDirectory: BaseDirectory.temporary,
@@ -58,7 +58,7 @@ class Downloader {
       Function(String path)? onSuccess}) async {
     try {
       final task = DownloadTask(
-        url: '${ConnectionClient.baseUrl}Files/GetFile?fileId=$fileId',
+        url: '${ConnectionClient.baseUrl}api/Files/GetFile?fileId=$fileId',
         updates: Updates.statusAndProgress,
         filename: fileName,
         allowPause: true,

@@ -1,31 +1,10 @@
-
 import 'package:flutter/material.dart';
 import 'package:safe_file_sender/models/state_controller.dart';
 
-class StatusLogger extends StatefulWidget {
-  final TransferStateController _controller;
+class StatusLogger extends StatelessWidget {
+  final List<TransferStateEnum> history;
 
-  @override
-  State<StatusLogger> createState() => _StatusLoggerState();
-
-  const StatusLogger({
-    super.key,
-    required TransferStateController controller,
-  }) : _controller = controller;
-}
-
-class _StatusLoggerState extends State<StatusLogger> {
-  @override
-  void initState() {
-    widget._controller.onStateChanged((state) {
-      WidgetsBinding.instance.addPostFrameCallback((callback) {
-        if (mounted) {
-          setState(() {});
-        }
-      });
-    });
-    super.initState();
-  }
+  const StatusLogger({super.key, required this.history});
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +19,7 @@ class _StatusLoggerState extends State<StatusLogger> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ...widget._controller.history.map(
+            ...history.map(
               (e) => Container(
                 margin: const EdgeInsets.only(top: 4, left: 4),
                 alignment: Alignment.centerLeft,
